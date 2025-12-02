@@ -1,11 +1,15 @@
 @echo off
-color 02
+mode con: cols=70 lines=26
+color 0A
 net session >nul 2>&1
 if %errorlevel% neq 0 (
-    title AutoDNS - Error de permisos
-    echo ERROR: Este script requiere privilegios de administrador.
-    echo Por favor, haz clic derecho y selecciona "Ejecutar como administrador".
-    pause
+    echo Solicitando permisos de administrador...
+    title AutoDNS - Elevando privilegios
+    if "%~1"=="" (
+        powershell -NoProfile -ExecutionPolicy Bypass -Command "Start-Process -FilePath '%~f0' -Verb RunAs"
+    ) else (
+        powershell -NoProfile -ExecutionPolicy Bypass -Command "Start-Process -FilePath '%~f0' -ArgumentList '%*' -Verb RunAs"
+    )
     exit /b
 )
 title AutoDNS - Ejecutando script
@@ -22,14 +26,14 @@ del "%tf%" >nul 2>&1
 >> "%tf%" echo     @{Name="OpenDNS (secundario)"; IP="208.67.220.220"},
 >> "%tf%" echo     @{Name="Comodo Secure"; IP="8.26.56.26"},
 >> "%tf%" echo     @{Name="Comodo Secure (secundario)"; IP="8.20.247.20"},
->> "%tf%" echo     @{Name="AdGuard DNS"; IP="94.140.14.14"},
->> "%tf%" echo     @{Name="AdGuard DNS (secundario)"; IP="94.140.15.15"},
+>> "%tf%" echo     @{Name="AdGuard"; IP="94.140.14.14"},
+>> "%tf%" echo     @{Name="AdGuard (secundario)"; IP="94.140.15.15"},
 >> "%tf%" echo     @{Name="CleanBrowsing"; IP="185.228.168.9"},
 >> "%tf%" echo     @{Name="CleanBrowsing (secundario)"; IP="185.228.169.9"},
 >> "%tf%" echo     @{Name="Level3"; IP="209.244.0.3"},
 >> "%tf%" echo     @{Name="Level3 (secundario)"; IP="209.244.0.4"},
->> "%tf%" echo     @{Name="Neustar UltraDNS"; IP="156.154.70.1"},
->> "%tf%" echo     @{Name="Neustar UltraDNS (secundario)"; IP="156.154.71.1"}
+>> "%tf%" echo     @{Name="Neustar"; IP="156.154.70.1"},
+>> "%tf%" echo     @{Name="Neustar (secundario)"; IP="156.154.71.1"}
 >> "%tf%" echo )
 >> "%tf%" echo $results = @()
 >> "%tf%" echo Write-Host "Evaluando servidores DNS..." -ForegroundColor Cyan
