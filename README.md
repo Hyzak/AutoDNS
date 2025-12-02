@@ -20,7 +20,7 @@ AutoDNS is a hybrid Batch + PowerShell script that automatically detects the fas
 
 ## Uso
 
-1. Haz clic derecho en "AutoDNS.bat" y selecciona **"Ejecutar como administrador"**
+1. Ejecuta el archivo
 2. Espera la evaluación de latencia (~10 segundos)
 3. El script aplicará los DNS óptimos automáticamente
 4. Se mostrará una cuenta regresiva en el título antes de cerrar
@@ -45,7 +45,7 @@ AutoDNS is a hybrid Batch + PowerShell script that automatically detects the fas
 
 - PowerShell 5
 - Conexión a Internet
-- Ejecución como administrador
+- Permisos de administrador
 
 ---
 
